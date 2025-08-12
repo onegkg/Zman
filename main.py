@@ -1,41 +1,24 @@
-from datetime import datetime
+import datetime
+import json
+
+import requests
 
 
 def main():
-    # declare api variables
-    api_user = None
-    api_key = None
-    api_location = None
+    location = "4950654"
+    date = datetime.date.today().strftime("%Y-%m-%d")
+    api_url = f"https://www.hebcal.com/zmanim?cfg=json&geonameid={location}&date={date}"
+    params = {"cfg": "json"}
 
-    # initialize variables with values from .config
-    with open(".config") as file:
-        content = file.read()
-        lines = content.split("\n")
+    response = requests.get(api_url, params=params)
+    print(response)
+    if response.status_code == 200:
+        data = response.json()
+        print(data)
+    else:
+        raise Exception("Error:", response.status_code, response.text)
 
-    for line in lines:
-        if line.startswith("USER"):
-            api_user = line.split("=", maxsplit=1)[1].strip()
-        if line.startswith("KEY"):
-            api_key = line.split("=", maxsplit=1)[1].strip()
-        if line.startswith("LOCATION"):
-            api_location = line.split("=", maxsplit=1)[1].strip()
-
-    api_url = "https://api.myzmanim.com/getDay"
-
-    params = {
-        "user": api_user,
-        "key": api_key,
-        "coding": "PY",
-        "language": "en",
-        "locationID": api_location,
-        "inputDate": datetime.now().strftime("%Y-%m-%d"),
-    }
-
-    for k, v in params.items():
-        print(k, v)
-
-    # response = requests.get(api_url)
-    # print(response.json())
+    print(json.dumps(data, indent=4))
 
 
 if __name__ == "__main__":
