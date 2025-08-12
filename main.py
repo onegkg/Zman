@@ -5,7 +5,20 @@ import requests
 
 
 def main():
-    location = "4950654"
+    location = None
+    with open(".config") as f:
+        content = f.read()
+        lines = content.split("\n")
+        for line in lines:
+            print(line)
+            if line.startswith("LOCATION_1"):
+                location = line.split("=", maxsplit=1)[1].strip()
+            # if line.startswith("LOCATION_2"):
+            #     if loc_index == "-2":
+            #     location2 = line.split("=", maxsplit=1)[1].strip()
+
+    if location is None:
+        raise Exception("no location provided")
     date = datetime.date.today().strftime("%Y-%m-%d")
     api_url = f"https://www.hebcal.com/zmanim?cfg=json&geonameid={location}&date={date}"
     params = {"cfg": "json"}

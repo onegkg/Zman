@@ -5,7 +5,10 @@ build/
 dist/
 wheels/
 *.egg-info
-.config
 
 # Virtual environments
 .venv
+
+# sensitive info/data
+.config
+example.json
