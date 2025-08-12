@@ -5,5 +5,7 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "datetime>=5.5",
+    "requests>=2.32.4",
     "typer>=0.16.0",
 ]
