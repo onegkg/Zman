@@ -1,6 +1,6 @@
 import datetime
 
-from helpers import make_default_dict, read_config, test_json  # , api_call
+from helpers import format_text, make_default_dict, read_config, test_json  # , api_call
 
 
 def main():
@@ -23,7 +23,8 @@ def main():
             date_object = datetime.datetime.strptime(v[:-6], "%Y-%m-%dT%H:%M:%S")
 
             do_formatted = date_object.strftime("%I:%M:%S %p")
-            print(f"{k}: {do_formatted}")
+            k_formatted = format_text(k)
+            print(f"{k_formatted}: {do_formatted}")
 
 
 if __name__ == "__main__":

@@ -38,6 +38,19 @@ def test_json():
         return json.load(file)
 
 
+def format_text(string):
+    output_str = ""
+    for index, char in enumerate(string):
+        if index == 0:
+            output_str += char.upper()
+        elif char.isupper():
+            output_str += " "
+            output_str += char
+        else:
+            output_str += char
+    return output_str
+
+
 def make_default_dict():
     default = {
         "chatzotNight": False,
