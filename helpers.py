@@ -2,9 +2,9 @@ import json
 import sys
 
 import requests
+from typing import IO
 
-
-def read_config(f, dictionary):
+def read_config(f: IO[str], dictionary: dict[str, bool]) -> tuple[str | None, dict[str, bool]]:
     location = None
     new_dict = dictionary.copy()
     try:
@@ -19,26 +19,25 @@ def read_config(f, dictionary):
     return (location, new_dict)
 
 
-def api_call(location, date):
+def api_call(location: str, date: str) -> dict[str, object]:
     api_url = f"https://www.hebcal.com/zmanim?cfg=json&geonameid={location}&date={date}"
     params = {"cfg": "json"}
     response = requests.get(api_url, params=params)
 
-    print(response)
     if response.status_code == 200:
-        data = response.json()
+        data: dict[str, object] = response.json()
         print(data)
         return data
     else:
         raise Exception("Error:", response.status_code, response.text)
 
 
-def test_json():
+def test_json() -> dict[str, object]:
     with open("example.json", "r", encoding="utf-8") as file:
         return json.load(file)
 
 
-def format_text(string):
+def format_text(string:str)-> str:
     output_str = ""
     for index, char in enumerate(string):
         if index == 0:
@@ -51,7 +50,7 @@ def format_text(string):
     return output_str
 
 
-def make_default_dict():
+def make_default_dict() -> dict[str, bool]:
     default = {
         "chatzotNight": False,
         "alotHaShachar": False,
