@@ -1,1 +1,1 @@
-im testing something :)
+testing = "im testing something :)"
