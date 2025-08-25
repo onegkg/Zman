@@ -1,19 +1,15 @@
 import json
 import sys
+from typing import IO
 
 import requests
-from typing import IO
+
+from config import *
+
 
 def read_config(f: IO[str], dictionary: dict[str, bool]) -> tuple[str | None, dict[str, bool]]:
     location = None
     new_dict = dictionary.copy()
-    try:
-        content = f.read()
-    except Exception:
-        print("file problem")
-        sys.exit(1)
-    lines = content.split("\n")
-    for line in lines:
         if line.startswith("location_1"):
             location = line.split("=", maxsplit=1)[1].strip()
     return (location, new_dict)

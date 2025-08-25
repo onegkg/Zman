@@ -7,14 +7,9 @@ from helpers import api_call, format_text, make_default_dict, read_config
 def main():
     parser = argparse.ArgumentParser(description="parser")
 
-    parser.add_argument('-h', '--help', action='store_true', help='help')
     parser.add_argument('-a', '--all', action='store_true', help='print all zmanim')
 
     args = parser.parse_args()
-
-    if args.help:
-        print("placeholder help statement")
-        return
 
     location: str | None = None
     default_zmanim: dict[str, bool] = make_default_dict()
