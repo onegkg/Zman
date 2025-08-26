@@ -31,7 +31,6 @@ def api_call(location: str, date: str) -> dict[str, object]:
 
     if response.status_code == 200:
         data: dict[str, object] = response.json()
-        print(data)
         return data
     else:
         raise Exception("Error:", response.status_code, response.text)
@@ -87,7 +86,3 @@ def make_default_dict() -> dict[str, bool]:
         "tzeit72min": False,
     }
     return default
-
-
-if __name__ == "__main__":
-    print(load_events_json(2025, "4950654"))
