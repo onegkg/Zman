@@ -7,9 +7,18 @@ import requests
 from config import *
 
 
-def read_config(f: IO[str], dictionary: dict[str, bool]) -> tuple[str | None, dict[str, bool]]:
+def read_config(
+    f: IO[str], dictionary: dict[str, bool]
+) -> tuple[str | None, dict[str, bool]]:
     location = None
     new_dict = dictionary.copy()
+    try:
+        content = f.read()
+    except Exception:
+        print("file problem")
+        sys.exit(1)
+    lines = content.split("\n")
+    for line in lines:
         if line.startswith("location_1"):
             location = line.split("=", maxsplit=1)[1].strip()
     return (location, new_dict)
@@ -33,7 +42,7 @@ def test_json() -> dict[str, object]:
         return json.load(file)
 
 
-def format_text(string:str)-> str:
+def format_text(string: str) -> str:
     output_str = ""
     for index, char in enumerate(string):
         if index == 0:
@@ -78,3 +87,7 @@ def make_default_dict() -> dict[str, bool]:
         "tzeit72min": False,
     }
     return default
+
+
+if __name__ == "__main__":
+    print(load_events_json(2025, "4950654"))

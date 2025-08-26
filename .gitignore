@@ -12,3 +12,4 @@ wheels/
 # sensitive info/data
 .config
 example.json
+.event_storage
