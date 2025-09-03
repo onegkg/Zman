@@ -1,6 +1,7 @@
 import json
 import sys
 from typing import IO
+import datetime
 
 import requests
 
@@ -86,3 +87,10 @@ def make_default_dict() -> dict[str, bool]:
         "tzeit72min": False,
     }
     return default
+
+def friday(dictionary, dto):
+    if dto.weekday() == 4:
+        sunset = dictionary["sunset"]
+        sunset_do = datetime.datetime.strptime(sunset[:-6], "%Y-%m-%dT%H:%M:%S")
+        return sunset_do - datetime.timedelta(minutes=PRE_SUNSET_SHABBAT)
+

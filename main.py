@@ -2,7 +2,7 @@ import datetime
 import argparse
 import sys
 
-from helpers import api_call, format_text, make_default_dict, read_config
+from helpers import api_call, format_text, make_default_dict, read_config, friday
 from dates.date import print_events
 
 
@@ -19,7 +19,6 @@ def main():
     )
 
     args = parser.parse_args()
-    print(args)
 
     location: str | None = None
     default_zmanim: dict[str, bool] = make_default_dict()
@@ -58,7 +57,6 @@ def main():
             do_formatted = date_object.strftime("%I:%M:%S %p")
             k_formatted = format_text(k)
             print(f"{k_formatted}: {do_formatted}")
-
 
 if __name__ == "__main__":
     main()
