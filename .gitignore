@@ -10,7 +10,6 @@ wheels/
 .venv
 
 # sensitive info/data
-config.py
-.config
+config.yaml
 example.json
 .event_storage

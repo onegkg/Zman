@@ -1,8 +1,9 @@
 import datetime
 import argparse
 import sys
+import geocoder
 
-from helpers import api_call, format_text, make_default_dict, read_config, friday
+from helpers import hebcal_call, format_text, read_config, friday
 from dates.date import print_events
 
 
@@ -20,19 +21,6 @@ def main():
 
     args = parser.parse_args()
 
-    location: str | None = None
-    default_zmanim: dict[str, bool] = make_default_dict()
-    zmanim_bool = {}
-
-    with open(".config") as f:
-        if args.all:
-            for k in default_zmanim.keys():
-                zmanim_bool[k] = True
-        else:
-            location, zmanim_bool = read_config(f, default_zmanim)
-    if location is None:
-        location = input("enter the geonames.org identifier for your desired location")
-
     if args.date == "today":
         date_obj = datetime.date.today()
     else:
@@ -42,12 +30,31 @@ def main():
             print("please enter a date in the format YYYY-MM-DD")
             sys.exit(1)
 
+    default_config = open("default_config.yaml")
+    try: 
+        user_config = open("config.yaml")
+    except Exception:
+        user_config = None
+
+
+    zmanim_bool, location_str, geonames_key, shabbat = read_config(default_config, user_config)
+
+    try:
+        geonames_obj = geocoder.geonames(location_str, key=geonames_key)
+    except Exception as e:
+        print(f"geonames api call failed with exception {e}")
+        print("The most likely issue is that you forgot to include your geonames api key in your config.yaml, see the docs for more info.")
+        sys.exit(1)
+
+    location = geonames_obj.geonames_id
 
     date = date_obj.strftime("%Y-%m-%d")
-    data = api_call(location, date)
-    # data = test_json()
+    data = hebcal_call(location, date)
 
     times = data["times"]
+
+    if date_obj.weekday() == 4:
+        times = friday(times, shabbat)
 
     print_events(location, date_obj)
     for k, v in times.items():  # pyright: ignore

@@ -1,0 +1,37 @@
+Zmanim:
+  chatzotNight: False
+  alotHaShachar: False
+  misheyakir: False
+  misheyakirMachmir: False
+  dawn: False
+  sunrise: True
+  sofZmanShmaMGA19Point8: False
+  sofZmanShmaMGA16Point1: False
+  sofZmanShmaMGA: False
+  sofZmanShma: True
+  sofZmanTfillaMGA19Point8: False
+  sofZmanTfillaMGA16Point1: False
+  sofZmanTfillaMGA: False
+  sofZmanTfilla: True
+  chatzot: True
+  minchaGedola: True
+  minchaGedolaMGA: False
+  minchaKetana: True
+  minchaKetanaMGA: False
+  plagHaMincha: True
+  candleLighting: True
+  sunset: True
+  beinHaShmashos: False
+  dusk: True
+  tzeit7083deg: False
+  tzeit85deg: False
+  tzeit42min: False
+  tzeit50min: False
+  tzeit72min: False
+
+APIs:
+  geonames_key: "" 
+
+Settings:
+  location: "New York, NY"
+  shabbat_start: 18 # the number of minutes before sunset shabbat starts. Should generally be set to 18 in chutz la'aretz and 40 in yerushalayim
