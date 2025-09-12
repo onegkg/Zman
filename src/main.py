@@ -33,17 +33,20 @@ def main():
     default_config = open("default_config.yaml")
     try: 
         user_config = open("config.yaml")
-    except Exception:
-        user_config = None
-
+    except FileNotFoundError:
+        print("No config.yaml file found, please create one at $CONFIG/zman/config.yaml")
+        sys.exit(1)
 
     zmanim_bool, location_str, geonames_key, shabbat = read_config(default_config, user_config)
+
+    if geonames_key is None:
+        print("It looks like you haven't included a geonames_key in your config.yaml file. If you need a geonames API key, you can create an account at https://www.geonames.org/login")
+        sys.exit(1)
 
     try:
         geonames_obj = geocoder.geonames(location_str, key=geonames_key)
     except Exception as e:
         print(f"geonames api call failed with exception {e}")
-        print("The most likely issue is that you forgot to include your geonames api key in your config.yaml, see the docs for more info.")
         sys.exit(1)
 
     location = geonames_obj.geonames_id

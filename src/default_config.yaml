@@ -30,7 +30,7 @@ Zmanim:
   tzeit72min: False
 
 APIs:
-  geonames_key: "" 
+  geonames_key: null
 
 Settings:
   location: "New York, NY"
