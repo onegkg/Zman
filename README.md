@@ -1,5 +1,5 @@
 # Zman
-A simple CLI zmanim tool powered by hebcal.
+A simple CLI Zmanim tool powered by Hebcal.
 
 ## Features
 - Zmanim and events (holidays, fasts, etc.) for any day at any location.
