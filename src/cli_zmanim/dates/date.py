@@ -1,5 +1,13 @@
 import json
 import requests
+from pathlib import Path
+import os
+
+_CACHE_DIR = (
+    Path(os.environ.get("XDG_CACHE_HOME", Path.home() / ".cache"))
+    / "cli-zmanim"
+    / "events"
+)
 
 
 def print_events(location: str, date):
@@ -18,17 +26,20 @@ def write_events_json(year: str, location: str):
 
     if response.status_code == 200:
         data: dict[str, object] = response.json()
-        with open(f".event_storage/{location}_{year}.json", "w") as f:
+        _CACHE_DIR.mkdir(parents=True, exist_ok=True)
+        file_path = _CACHE_DIR / f"{location}_{year}.json"
+        with open(file_path, "w") as f:
             json.dump(data, f, indent=4)
     else:
         raise Exception("Error:", response.status_code, response.text)
 
 
 def load_events_json(year: str, location: str):
+    file_path = _CACHE_DIR / f"{location}_{year}.json"
     try:
-        with open(f".event_storage/{location}_{year}.json", "r", encoding="utf-8") as f:
+        with open(file_path, "r", encoding="utf-8") as f:
             return json.load(f)
     except FileNotFoundError:
         write_events_json(year, location)
-        with open(f".event_storage/{location}_{year}.json", "r", encoding="utf-8") as f:
+        with open(file_path, "r", encoding="utf-8") as f:
             return json.load(f)

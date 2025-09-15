@@ -57,7 +57,7 @@ Zmanim:
   tzeit72min: False
 
 APIs:
-  geonames_key: "" 
+  geonames_key: "" # This field must be replaced with your geonames key before first usage
 
 Settings:
   location: "New York, NY" # Plain text location to be fed to the geonames api. The API will attempt to guess the location with the provided information. It is recommended that you include a state or country code to help prevent mismatches.
