@@ -9,14 +9,14 @@ A simple CLI Zmanim tool powered by Hebcal.
 
 ## Installation
 1. Clone this repo to an appropriate location and cd into the resulting directory
-''' {bash}
+``` {bash}
 git clone https://github.com/onegkg/Zman.git
 cd Zman
-'''
+```
 2. Install using pip
-''' {bash}
+``` {bash}
 pip install .
-'''
+```
 3. Before using zman, you'll need to create a geonames.org api key. this is a free service that is used to convert plain text place names to a unique identifier that can be used in the hebcal API
     1. Create a free [geonames.org](https://www.geonames.org/login) account.
     2. Once you've created your account, navigate to your account page and turn on "Free Web Services" for your account.
