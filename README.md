@@ -8,12 +8,19 @@ A simple CLI Zmanim tool powered by Hebcal.
         - Automatic switching between 18 and 40 min candle lighting based on location (in development)
 
 ## Installation
-[installation instructions]
-
-Before using zman, you'll need to create a geonames.org api key. this is a free service that is used to convert plain text place names to a unique identifier that can be used in the hebcal API
-1. Create a free [geonames.org](https://www.geonames.org/login) account.
-2. Once you've created your account, navigate to your account page and turn on "Free Web Services" for your account.
-3. Create a `config.yaml` file at [path] and add your geonames user name under `APIs -> geonames_key`
+1. Clone this repo to an appropriate location and cd into the resulting directory
+''' {bash}
+git clone https://github.com/onegkg/Zman.git
+cd Zman
+'''
+2. Install using pip
+''' {bash}
+pip install .
+'''
+3. Before using zman, you'll need to create a geonames.org api key. this is a free service that is used to convert plain text place names to a unique identifier that can be used in the hebcal API
+    1. Create a free [geonames.org](https://www.geonames.org/login) account.
+    2. Once you've created your account, navigate to your account page and turn on "Free Web Services" for your account.
+    3. Create a `config.yaml` file at `$XDG_CONFIG_HOME/zman/` (on MacOS, `$XDG_CONFIG_HOME` is usually `~/.config`) and add your geonames user name under `APIs -> geonames_key`. A sample minimal config.yaml file is provided under 
 
 ## Usage
 - `zman` gives you the zmanim for the current day at the location from your config. [include picture]
