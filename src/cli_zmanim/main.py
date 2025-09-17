@@ -22,6 +22,14 @@ def main():
         help="choose the date for the data to be chosen from. Should be formatted 'YYYY-MM-DD'",
     )
 
+    parser.add_argument(
+            "-l",
+            "--location",
+            type=str,
+            default=None,
+            help="choose the location to get zmanim for."
+            )
+
     args = parser.parse_args()
 
     if args.date == "today":
@@ -49,6 +57,9 @@ def main():
         print("It looks like you haven't included a geonames_key in your config.yaml file. If you need a geonames API key, you can create an account at https://www.geonames.org/login")
         sys.exit(1)
 
+    if args.location is not None:
+        location_str = args.location
+
     try:
         geonames_obj = geocoder.geonames(location_str, key=geonames_key)
     except Exception as e:
@@ -65,6 +76,7 @@ def main():
     if date_obj.weekday() == 4:
         times = friday(times, shabbat)
 
+    print(f"Zmanim for {location_str}:")
     print_events(location, date_obj)
     for k, v in times.items():  # pyright: ignore
         if zmanim_bool[k]:

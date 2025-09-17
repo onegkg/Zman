@@ -20,7 +20,7 @@ pip install .
 3. Before using zman, you'll need to create a geonames.org api key. this is a free service that is used to convert plain text place names to a unique identifier that can be used in the hebcal API
     1. Create a free [geonames.org](https://www.geonames.org/login) account.
     2. Once you've created your account, navigate to your account page and turn on "Free Web Services" for your account.
-    3. Create a `config.yaml` file at `$XDG_CONFIG_HOME/zman/` (on MacOS, `$XDG_CONFIG_HOME` is usually `~/.config`) and add your geonames user name under `APIs -> geonames_key`. A sample minimal config.yaml file is provided under 
+    3. Create a `config.yaml` file at `$XDG_CONFIG_HOME/zman/` (if you run zman without a config file, it will tell you where to put the config file) and add your geonames user name under `APIs -> geonames_key`. A sample minimal config.yaml file is provided under [Sample Config](#sample-config)
 
 ## Usage
 - `zman` gives you the zmanim for the current day at the location from your config. [include picture]
@@ -29,7 +29,19 @@ pip install .
 - `zman -h` prints the help message.
 
 ## Configuration
-Configuration is done in a `config.yaml` file. This file should be placed at [path]. This file is merged with the `default_config.yaml` file (shown below) which provides the default settings. You'll want to make sure to override the location and geonames_key fields before use
+### Sample Config
+Configuration is done in a `config.yaml` file, which should be placed in `$XDG_CONFIG_HOME/zman/config.yaml`. A minimal sample config is provided below.
+``` {yaml}
+APIs:
+  geonames_key: "<your_geonames_username>" 
+
+Settings:
+  location: "Boston, MA" 
+```
+### Full Configuration
+Below is the full `default_config.yaml`, any of these options can be overriden by the user in `config.yaml`. 
+#### Zmanim
+These are are all of the zmanim that are provided by the Hebcal API, I've set sane defaults, but you are welcome to change any of them that you would like. Zmanim with MGA and numbers in their names may have their names formatted weirdly, this is unintentional and will probably be fixed at some point. 
 
 ``` {yaml}
 Zmanim:
