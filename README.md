@@ -33,7 +33,7 @@ pip install .
 
 - `zman -l` or `zman --location` allows you to get the zmanim in a particular location.
 
-<img src="images/date.png" height=300>
+<img src="images/location.png" height=300>
 
 - `zman -h` prints the help message.
 
