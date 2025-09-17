@@ -78,6 +78,7 @@ def main():
 
     print(f"Zmanim for {location_str}:")
     print_events(location, date_obj)
+    print()
     for k, v in times.items():  # pyright: ignore
         if zmanim_bool[k]:
             date_object = datetime.datetime.strptime(v[:-6], "%Y-%m-%dT%H:%M:%S")

@@ -23,9 +23,18 @@ pip install .
     3. Create a `config.yaml` file at `$XDG_CONFIG_HOME/zman/` (if you run zman without a config file, it will tell you where to put the config file) and add your geonames user name under `APIs -> geonames_key`. A sample minimal config.yaml file is provided under [Sample Config](#sample-config)
 
 ## Usage
-- `zman` gives you the zmanim for the current day at the location from your config. [include picture]
-- `zman -d` or `zman --date`allows you to get the zmanim on a particular date. [formatting, include picture]
+- `zman` gives you the zmanim for the current day at the location from your config.
+
+<img src="images/zman.png" height=300>
+
+- `zman -d` or `zman --date`allows you to get the zmanim on a particular date. The date should be formatted as YYYY-MM-DD
+
+<img src="images/date.png" height=300>
+
 - `zman -l` or `zman --location` allows you to get the zmanim in a particular location.
+
+<img src="images/date.png" height=300>
+
 - `zman -h` prints the help message.
 
 ## Configuration
