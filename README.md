@@ -49,8 +49,6 @@ Settings:
 ```
 ### Full Configuration
 Below is the full `default_config.yaml`, any of these options can be overriden by the user in `config.yaml`. 
-#### Zmanim
-These are are all of the zmanim that are provided by the Hebcal API, I've set sane defaults, but you are welcome to change any of them that you would like. Zmanim with MGA and numbers in their names may have their names formatted weirdly, this is unintentional and will probably be fixed at some point. 
 
 ``` {yaml}
 Zmanim:
@@ -92,5 +90,5 @@ Settings:
   shabbat_start: 18 # The number of minutes before sunset shabbat starts. Should generally be set to 18 in chutz la'aretz and 40 in yerushalayim.
 ```
 
-## License
-
+#### Zmanim
+These are are all of the zmanim that are provided by the Hebcal API, I've set sane defaults, but you are welcome to change any of them that you would like. Zmanim with MGA and numbers in their names may have their names formatted weirdly, this is unintentional and will probably be fixed at some point. 
