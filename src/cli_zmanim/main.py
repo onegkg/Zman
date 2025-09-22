@@ -36,9 +36,9 @@ def main():
         date_obj = datetime.date.today()
     else:
         try:
-            date_obj = datetime.datetime.strptime(args.date, "%Y-%m-%d")
+            date_obj = datetime.datetime.strptime(args.date, "%m/%d/%Y")
         except ValueError:
-            print("please enter a date in the format YYYY-MM-DD")
+            print("please enter a date in the format MM/DD/YYYY")
             sys.exit(1)
 
     config_dir = Path(os.environ.get("XDG_CONFIG_HOME", Path.home() / ".config")) / "zman"

@@ -27,7 +27,7 @@ pip install .
 
 <img src="images/zman.png" height=300>
 
-- `zman -d` or `zman --date`allows you to get the zmanim on a particular date. The date should be formatted as YYYY-MM-DD
+- `zman -d` or `zman --date`allows you to get the zmanim on a particular date. The date should be formatted as MM/DD/YYYY.
 
 <img src="images/date.png" height=300>
 
