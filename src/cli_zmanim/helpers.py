@@ -61,6 +61,7 @@ def friday(dictionary: dict, shabbat: int) -> dict:
     output = insert_before(dictionary, "sunset", "candleLighting", value)
     return output
 
+
 def insert_before(dictionary: dict, before_key: str, key: str, value: str) -> dict:
     output = {}
     for k, v in dictionary.items():
@@ -68,7 +69,6 @@ def insert_before(dictionary: dict, before_key: str, key: str, value: str) -> di
             output[key] = value
         output[k] = v
     return output
-
 
 
 def merge(user: dict, default: dict) -> dict:
