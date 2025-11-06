@@ -5,7 +5,6 @@ A simple CLI Zmanim tool powered by Hebcal.
 - Zmanim and events (holidays, fasts, etc.) for any day at any location.
     - All zmanim provided in the hebcal API plus candle lighting are available 
     - Candle lighting calculated based on a custom variable allowing for 18 min, 40 min or any other period.
-        - Automatic switching between 18 and 40 min candle lighting based on location (in development)
 
 ## Installation
 1. Clone this repo to an appropriate location and cd into the resulting directory
