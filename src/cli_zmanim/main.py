@@ -1,19 +1,21 @@
 import datetime
 import argparse
 import sys
+
 import geocoder
 import importlib.resources
 from pathlib import Path
 import os
+from rich.traceback import install
 
 from .helpers import hebcal_call, format_text, read_config, friday
-from .dates.date import print_events
+from .date import print_events
 
+install()
 
 def main():
+    # set up parser
     parser = argparse.ArgumentParser()
-
-    # parser.add_argument("-a", "--all", action="store_true", help="print all zmanim")
     parser.add_argument(
         "-d",
         "--date",
@@ -21,17 +23,18 @@ def main():
         default="today",
         help="choose the date for the data to be chosen from. Should be formatted 'YYYY-MM-DD'",
     )
-
     parser.add_argument(
-            "-l",
-            "--location",
-            type=str,
-            default=None,
-            help="choose the location to get zmanim for."
-            )
-
+        "-l",
+        "--location",
+        type=str,
+        default=None,
+        help="choose the location to get zmanim for.",
+    )
     args = parser.parse_args()
 
+    skip_geonames: bool = False
+
+    # creates date object for the appropriate day
     if args.date == "today":
         date_obj = datetime.date.today()
     else:
@@ -41,32 +44,49 @@ def main():
             print("please enter a date in the format MM/DD/YYYY")
             sys.exit(1)
 
-    config_dir = Path(os.environ.get("XDG_CONFIG_HOME", Path.home() / ".config")) / "zman"
+    # Find config file
+    config_dir = (
+        Path(os.environ.get("XDG_CONFIG_HOME", Path.home() / ".config")) / "zman"
+    )
     user_config_path = config_dir / "config.yaml"
 
-    try: 
+    # Open config file or exit
+    try:
         user_config_file = open(user_config_path)
     except FileNotFoundError:
         print(f"No config.yaml file found, please create one at {user_config_path}")
         sys.exit(1)
 
-    with importlib.resources.open_text("cli_zmanim", "default_config.yaml") as default_config_file:
-        zmanim_bool, location_str, geonames_key, shabbat = read_config(default_config_file, user_config_file)
+    # Load default config
+    with importlib.resources.open_text(
+        "cli_zmanim", "default_config.yaml"
+    ) as default_config_file:
+        zmanim_bool, location_str, geonames_key, shabbat, geonames_id = read_config(
+            default_config_file, user_config_file
+        )
 
-    if geonames_key is None:
-        print("It looks like you haven't included a geonames_key in your config.yaml file. If you need a geonames API key, you can create an account at https://www.geonames.org/login")
+    if geonames_id is not None or geonames_key is None:
+        skip_geonames = True
+        location = geonames_id
+
+    if geonames_key is None and not skip_geonames:
+        print(
+            "No geonames key or ID found in config file, you can get an api key or look up the ID for your desired location at geonames.org"
+        )
         sys.exit(1)
 
     if args.location is not None:
         location_str = args.location
 
-    try:
-        geonames_obj = geocoder.geonames(location_str, key=geonames_key)
-    except Exception as e:
-        print(f"geonames api call failed with exception {e}")
-        sys.exit(1)
+    if not skip_geonames:
+        try:
+            geonames_obj = geocoder.geonames(location_str, key=geonames_key)
+        except Exception as e:
+            print(f"geonames api call failed with exception {e}")
+            sys.exit(1)
 
-    location = geonames_obj.geonames_id
+        location = geonames_obj.geonames_id
+        print(location)
 
     date = date_obj.strftime("%Y-%m-%d")
     data = hebcal_call(location, date)
@@ -76,7 +96,10 @@ def main():
     if date_obj.weekday() == 4:
         times = friday(times, shabbat)
 
-    print(f"Zmanim for {location_str}:")
+    if not skip_geonames:
+        print(f"Zmanim for {location_str}:")
+    else:
+        print(f"Zmanim for {location}")
     print_events(location, date_obj)
     print()
     for k, v in times.items():  # pyright: ignore
@@ -86,6 +109,7 @@ def main():
             do_formatted = date_object.strftime("%I:%M:%S %p")
             k_formatted = format_text(k)
             print(f"{k_formatted}: {do_formatted}")
+
 
 if __name__ == "__main__":
     main()
