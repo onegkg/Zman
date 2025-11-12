@@ -34,4 +34,5 @@ APIs:
 
 Settings:
   location: "New York, NY"
+  geonames_loc: null
   shabbat_start: 18 # the number of minutes before sunset shabbat starts. Should generally be set to 18 in chutz la'aretz and 40 in yerushalayim

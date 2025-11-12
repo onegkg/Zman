@@ -7,7 +7,7 @@ import requests
 
 def read_config(
     default_config: TextIO, user_config: TextIO | None
-) -> tuple[dict, str, str, int]:
+) -> tuple[dict, str, str, int, str]:
     defaults = yaml.safe_load(default_config)
 
     if user_config is not None:
@@ -16,11 +16,16 @@ def read_config(
     else:
         merged = defaults
 
-    zmanim = merged["Zmanim"]
-    location = merged["Settings"]["location"]
-    geonames = merged["APIs"]["geonames_key"]
-    shabbat_start = merged["Settings"]["shabbat_start"]
-    return (zmanim, location, geonames, shabbat_start)
+    try:
+        zmanim: dict = merged["Zmanim"]
+        location: str = merged["Settings"]["location"]
+        geonames_key: str = merged["APIs"]["geonames_key"]
+        shabbat_start: int = merged["Settings"]["shabbat_start"]
+        geonames_id: str = merged["Settings"]["geonames_loc"]
+    except TypeError:
+        print("Couldn't properly parse your config.yaml, if you're config file contains an empty category (eg. APIs), try removing it")
+        exit(1)
+    return (zmanim, location, geonames_key, shabbat_start, geonames_id)
 
 
 def hebcal_call(location: str, date: str) -> dict:
