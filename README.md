@@ -1,6 +1,6 @@
 # Zman
 
-A simple CLI Zmanim tool powered by Hebcal.
+A simple CLI Zmanim tool powered by Hebcal. (Are you coming from my resume? See the skills I used in this project [here](SKILLS.md))
 
 ## Features
 
