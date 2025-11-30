@@ -1,6 +1,6 @@
 # Zman Project Summary
 
-Zman is a sophisticated command-line tool that calculates Jewish prayer times (zmanim) and religious events for any location and date. The application integrates with external APIs (Hebcal and Geonames) to provide accurate time-based calculations while maintaining a user-friendly interface with extensive customization options through YAML configuration files.
+Zman is a simple command-line tool that calculates Jewish prayer times (zmanim) and religious events for any location and date. The application integrates with external APIs (Hebcal and Geonames) to provide accurate time-based calculations while maintaining a user-friendly interface with extensive customization options through YAML configuration files.
 
 ## Technical Skills & Experience
 
