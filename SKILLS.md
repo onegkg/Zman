@@ -6,7 +6,7 @@ Zman is a sophisticated command-line tool that calculates Jewish prayer times (z
 
 ## Programming Languages & Technologies
 - **Python 3.12+**: Advanced proficiency with modern Python features and type hints
-- **CLI Development**: Built command-line interfaces using argparse and typer
+- **CLI Development**: Built command-line interfaces using argparse
 - **API Integration**: RESTful API consumption with requests library
 - **Data Processing**: JSON/YAML parsing, datetime manipulation, and data transformation
 
