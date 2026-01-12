@@ -75,11 +75,11 @@ Below is the full `default_config.yaml`, any of these options can be overriden b
 ``` {yaml}
 Zmanim:
   chatzotNight: False
-  alotHaShachar: False
+  alotHaShachar: True
   misheyakir: False
   misheyakirMachmir: False
   dawn: False
-  sunrise: True
+  sunrise: False 
   sofZmanShmaMGA19Point8: False
   sofZmanShmaMGA16Point1: False
   sofZmanShmaMGA: False
@@ -97,9 +97,9 @@ Zmanim:
   candleLighting: True
   sunset: True
   beinHaShmashos: False
-  dusk: True
+  dusk: False
   tzeit7083deg: False
-  tzeit85deg: False
+  tzeit85deg: True
   tzeit42min: False
   tzeit50min: False
   tzeit72min: False
@@ -116,4 +116,4 @@ Settings:
 
 These are are all of the zmanim that are provided by the Hebcal API, I've set sane defaults, but you are welcome to
 change any of them that you would like. Zmanim with MGA and numbers in their names may have their names formatted
-weirdly, this is unintentional and will probably be fixed at some point. 
+weirdly, this is unintentional and will probably be fixed at some point.
