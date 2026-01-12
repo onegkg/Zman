@@ -1,10 +1,10 @@
 Zmanim:
   chatzotNight: False
-  alotHaShachar: False
+  alotHaShachar: True
   misheyakir: False
   misheyakirMachmir: False
   dawn: False
-  sunrise: True
+  sunrise: False
   sofZmanShmaMGA19Point8: False
   sofZmanShmaMGA16Point1: False
   sofZmanShmaMGA: False
@@ -22,9 +22,9 @@ Zmanim:
   candleLighting: True
   sunset: True
   beinHaShmashos: False
-  dusk: True
+  dusk: False
   tzeit7083deg: False
-  tzeit85deg: False
+  tzeit85deg: True
   tzeit42min: False
   tzeit50min: False
   tzeit72min: False

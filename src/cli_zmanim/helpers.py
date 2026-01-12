@@ -1,8 +1,8 @@
-from typing import TextIO
 import datetime
-import yaml
+from typing import TextIO
 
 import requests
+import yaml
 
 
 def read_config(
@@ -23,13 +23,16 @@ def read_config(
         shabbat_start: int = merged["Settings"]["shabbat_start"]
         geonames_id: str = merged["Settings"]["geonames_loc"]
     except TypeError:
-        print("Couldn't properly parse your config.yaml, if you're config file contains an empty category (eg. APIs), try removing it")
+        print(
+            "Couldn't properly parse your config.yaml, if your config file contains an empty category (eg. APIs), try removing it"
+        )
         exit(1)
     return (zmanim, location, geonames_key, shabbat_start, geonames_id)
 
 
 def hebcal_call(location: str, date: str) -> dict:
     api_url = f"https://www.hebcal.com/zmanim?cfg=json&geonameid={location}&date={date}"
+    # print(api_url)
     params = {"cfg": "json"}
     response = requests.get(api_url, params=params)
 
@@ -46,16 +49,53 @@ def hebcal_call(location: str, date: str) -> dict:
 
 
 def format_text(string: str) -> str:
-    output_str = ""
-    for index, char in enumerate(string):
-        if index == 0:
-            output_str += char.upper()
-        elif char.isupper():
-            output_str += " "
-            output_str += char
-        else:
-            output_str += char
-    return output_str
+    names: dict[str, str] = {
+        "chatzotNight": "Chatzot Night",
+        "alotHaShachar": "Alot Hashachar",
+        "misheyakir": "Misheyakir (Earliest Tallit)",
+        "misheyakirMachmir": "Misheyakir (Earliest Tallit; Machmir)",
+        "dawn": "Civil Dawn",
+        "sunrise": "Sunrise",
+        "sofZmanShmaMGA19Point8": "Sof Zman Shma (Magen Avraham 19.8)",
+        "sofZmanShmaMGA16Point1": "Sof Zman Shma (Magen Avraham 16.1)",
+        "sofZmanShmaMGA": "Sof Zman Shma (Magen Avraham 72min)",
+        "sofZmanShma": "Sof Zman Shma (Gra)",
+        "sofZmanTfillaMGA19Point8": "Sof Zman Tfilla (Magen Avraham 19.8)",
+        "sofZmanTfillaMGA16Point1": "Sof Zman Tfilla (Magen Avraham 16.1)",
+        "sofZmanTfillaMGA": "Sof Zman Tfilla (Magen Avraham 72min)",
+        "sofZmanTfilla": "Sof Zman Tfilla (Gra)",
+        "chatzot": "Chatzot",
+        "minchaGedola": "Mincha Gedola (Gra)",
+        "minchaGedolaMGA": "Mincha Gedola (Magen Avraham)",
+        "minchaKetana": "Mincha Ketana (Gra)",
+        "minchaKetanaMGA": "Mincha Ketana (Magen Avraham)",
+        "plagHaMincha": "Plag Hamincha",
+        "sunset": "Sunset",
+        "beinHaShmashos": "Bein Hashmashot",
+        "dusk": "Dusk",
+        "tzeit7083deg": "Tzeit (7.083 degrees)",
+        "tzeit85deg": "Tzeit (8.5 degrees)",
+        "tzeit42min": "tzeit (42 min)",
+        "tzeit50min": "tzeit (50 min)",
+        "tzeit72min": "tzeit (72 min)",
+    }
+
+    stripped: str = string.strip()
+
+    if stripped in names:
+        return names[stripped]
+    else:
+        # print("manually processing")
+        output_str = ""
+        for index, char in enumerate(stripped):
+            if index == 0:
+                output_str += char.upper()
+            elif char.isupper():
+                output_str += " "
+                output_str += char
+            else:
+                output_str += char
+        return output_str
 
 
 def friday(dictionary: dict, shabbat: int) -> dict:
