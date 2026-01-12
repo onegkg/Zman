@@ -85,7 +85,7 @@ def format_text(string: str) -> str:
     if stripped in names:
         return names[stripped]
     else:
-        print("manually processing")
+        # print("manually processing")
         output_str = ""
         for index, char in enumerate(stripped):
             if index == 0:
