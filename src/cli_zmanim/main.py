@@ -1,17 +1,18 @@
-import datetime
 import argparse
+import datetime
+import importlib.resources
+import os
 import sys
+from pathlib import Path
 
 import geocoder
-import importlib.resources
-from pathlib import Path
-import os
 from rich.traceback import install
 
-from .helpers import hebcal_call, format_text, read_config, friday
 from .date import print_events
+from .helpers import format_text, friday, hebcal_call, read_config
 
 install()
+
 
 def main():
     # set up parser
@@ -86,7 +87,7 @@ def main():
             sys.exit(1)
 
         location = geonames_obj.geonames_id
-        print(location)
+        # print(location)
 
     date = date_obj.strftime("%Y-%m-%d")
     data = hebcal_call(location, date)
