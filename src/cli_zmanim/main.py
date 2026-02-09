@@ -4,6 +4,7 @@ import importlib.resources
 import os
 import sys
 from pathlib import Path
+from typing import Dict
 
 import geocoder
 from rich.traceback import install
@@ -11,6 +12,7 @@ from rich.traceback import install
 from .date import print_events
 from .helpers import format_text, friday, hebcal_call, read_config
 
+# install rich traceback
 install()
 
 
@@ -33,9 +35,7 @@ def main():
     )
     args = parser.parse_args()
 
-    skip_geonames: bool = False
-
-    # creates date object for the appropriate day
+    # Creates date object for the appropriate day
     if args.date == "today":
         date_obj = datetime.date.today()
     else:
@@ -51,7 +51,7 @@ def main():
     )
     user_config_path = config_dir / "config.yaml"
 
-    # Open config file or exit
+    # Open config file or error out
     try:
         user_config_file = open(user_config_path)
     except FileNotFoundError:
@@ -66,18 +66,24 @@ def main():
             default_config_file, user_config_file
         )
 
-    if geonames_id is not None or geonames_key is None:
+    # Overrides default location with location given as argument
+    if args.location is not None:
+        location_str = args.location
+
+    # If a geonames_id is provided skip the geonames api call
+    location: str | None = None
+    if geonames_id is not None:
         skip_geonames = True
         location = geonames_id
+    else:
+        skip_geonames = False
 
+    # If we have no way to get geonames_id
     if geonames_key is None and not skip_geonames:
         print(
             "No geonames key or ID found in config file, you can get an api key or look up the ID for your desired location at geonames.org"
         )
         sys.exit(1)
-
-    if args.location is not None:
-        location_str = args.location
 
     if not skip_geonames:
         try:
@@ -89,21 +95,30 @@ def main():
         location = geonames_obj.geonames_id
         # print(location)
 
+    # Convert the date object to a string
     date = date_obj.strftime("%Y-%m-%d")
+    assert location is not None, "Location should be set by geonames_id or API call"
+    # get hebcal data
     data = hebcal_call(location, date)
 
-    times = data["times"]
+    # Extract times from the data dictionary
+    times: Dict[str, str] = data["times"]
 
+    # If it is friday, add candle lighting times
     if date_obj.weekday() == 4:
         times = friday(times, shabbat)
 
+    # Location header
     if not skip_geonames:
         print(f"Zmanim for {location_str}:")
     else:
-        print(f"Zmanim for {location}")
+        print(f"Zmanim for the location with ID: {location}")
+        
     print_events(location, date_obj)
     print()
-    for k, v in times.items():  # pyright: ignore
+    
+    # Print each zman that is enabled
+    for k, v in times.items():  
         if zmanim_bool[k]:
             date_object = datetime.datetime.strptime(v[:-6], "%Y-%m-%dT%H:%M:%S")
 
